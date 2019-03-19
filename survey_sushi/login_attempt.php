@@ -10,20 +10,19 @@ $result = mysql_query("SELECT * FROM user_auth");
 <div class = "container-fluid" style = "margin-top:5rem;">
 
   <?php
-$name = $_POST['username'];
-$password = $_POST['password'];
+  session_start();
+$_SESSION['name'] = $_POST['username'];
+$_SESSION['password'] = $_POST['password'];
 ?>
 
 <?php
 while($LOL = mysql_fetch_array($result))
 {
-if ($LOL['username'] == $name && $LOL['password'] == $password){
-    echo "Success!";
-    echo '<script type="text/javascript">',
-     'LoggedIn("',
-     $name,
-     '");',
-     '</script>';
+if ($LOL['username'] == $_SESSION['name'] && $LOL['password'] == $_SESSION['password']){
+    $_SESSION['status'] = "online";
+    echo "<h1>",
+    "Success!",
+    "</h1>";
   }
 else {
   echo "Login Failed";

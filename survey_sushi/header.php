@@ -7,15 +7,21 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
+
+h1{
+  margin-left:3rem;
+}
 </style>
 
 <script>
 function LoggedIn(name) {
   document.getElementById("login").style.display = "none";
   document.getElementById("welcome").style.display = "block";
+  document.getElementById("logout").style.display = "block";
   document.getElementById("welcome").innerHTML = "Online: " + name;
 }
 </script>
+
 
 <html lang="en">
   <head>
@@ -26,7 +32,7 @@ function LoggedIn(name) {
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>Survey Sushi</title>
 
     <!-- Bootstrap core CSS -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
@@ -61,7 +67,13 @@ function LoggedIn(name) {
             <li><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/references.php">References</a></li>
           </ul>
         </div><!--/.nav-collapse -->
-        <div id = "welcome" style = "float:right; color:white; display:none;">
+        <div id = "logout" style = "display:none; float:right; color:white;">
+          <form action="./logout.php" method='post'>
+            <input type="submit" name="submit" value="Logout">
+          </form>
+        </div>
+        <div id = "welcome" style = "float:right; color:white; display:none;
+        margin-right:2rem;">
       </div>
       </div>
     </div>
