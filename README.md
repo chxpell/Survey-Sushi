@@ -7,3 +7,12 @@
 
 #### Create Interface For Admins To Make Surveys
 #### Create Interface For Admins To View Analytics of Surveys
+
+### Website - Completed
+
+#### User Authentication
+#### Account Creation
+
+## App - To Do
+
+
