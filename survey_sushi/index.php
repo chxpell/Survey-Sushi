@@ -36,17 +36,12 @@ color:yellow;
     <!-- Call to action buttons -->
       <div class = "row text-center">
 
-        <div class = "col-sm-6" style = "">
+        <div class = "col-sm-12" style = "">
           <a class = "homepage_button">
 Looking to Create Surveys?
 </a>
         </div>
 
-        <div class = "col-sm-6">
-            <a class = "homepage_button">
-Have a Survey Access Code?
-</a>
-        </div>
 
       </div>
 
