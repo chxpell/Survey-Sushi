@@ -9,6 +9,9 @@ import android.content.res.ColorStateList;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -84,7 +87,6 @@ public class SurveyClass extends AppCompatActivity {
         addListeners(this);
 
         /*  Add questions for survey */
-        addInfoQuestion(this,"Please fill out the following fields", "basic_info");
         addQuestion(this, "Member's gender is",  "gender", "Male", "Female");
         addQuestion(this, "Member's incontinence issues are",  "type",
                 "Urinary", "Urinary and fecal");
@@ -146,33 +148,6 @@ public class SurveyClass extends AppCompatActivity {
                     if (currentQuestion != questions.size() - 1)
                     {
 
-                        /*
-                         * The answer choices for the pant size question depend on the answer to the gender question.
-                         * Before adding a new question we need to check:
-                         *   Is the current question the gender question?
-                         *       If it is, and it has been answereds
-                         *           Check what the answer is
-                         *                  If male, add size question with male sizes
-                         *                  If female, add size question with female sizes
-                         */
-
-                        // If we are on the gender question
-                        if(questions.get(questionMap.get(currentQuestion)).getDescription().equals("gender"))
-                        {
-                            if(answers.get("gender").equals("Male")){
-                                addQuestion(ctx, "What is the member's pant size?", "size", "Extra Small (28\")", "Small (30\")", "Medium (32\")",
-                                        "Large (34\")", "XLarge (36\")", "XXLarge (38\")", "XXXLarge (40\")");
-                            }
-                            else if(answers.get("gender").equals("Female")){
-                                addQuestion(ctx, "What is the member's pant size?", "size", "Extra Small (sizes 2-3)", "Small (sizes 4-6)", "Medium (sizes 8-10)",
-                                        "Large (sizes 12-14)", "XLarge (sizes 16-18)", "XXLarge (sizes 20-22)", "XXXLarge (sizes 24-26)");
-                            }
-                        }
-                        /*  Add final question after the size question  */
-                        addQuestion(ctx, "\n" +
-                                        "Does the Member receive assistance from a home health agency? ",  "homeHealth",
-                                "Yes", "No");
-
                         /*  Increment current question counter  */
                         currentQuestion++;
 
@@ -232,6 +207,7 @@ public class SurveyClass extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog alert = createAlertDialog("Do you want to exit the survey?\nAll progress will be lost", context);
                 alert.setTitle("Exit survey?");
+
                 alert.show();
             }
         });
@@ -334,7 +310,9 @@ public class SurveyClass extends AppCompatActivity {
         builder.setMessage(message);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(ctx, "Submitting result", Toast.LENGTH_SHORT).show();
+                // Go back to main
+                Intent i = new Intent(SurveyClass.this, MainActivity.class);
+                startActivity(i);
                 dialog.dismiss();
             }
         });
@@ -362,95 +340,6 @@ class Question
     final RadioGroup rg;
     final EditText id_field, num_months_field;
     final Spinner time_field;
-
-    /*  Constructor for the basic information question (Member ID, time period, # of months authorized  */
-    Question(final Context context, String title, String description)
-    {
-        this.context = context;
-        this.title = title;
-        this.description = description;
-        rg = null;
-
-        /*  Store the parameters for each textview/edittext pair, so that their widths are all formatted    */
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
-            params.gravity=Gravity.FILL;
-
-        /*  Set up vertical layout to hold question title and radiogroup    */
-        contents = new LinearLayout(context);
-        contents.setMinimumHeight(getScreenHeight());
-        contents.setOrientation(LinearLayout.VERTICAL);
-        contents.setId(View.generateViewId());
-
-        /*  Create textview to hold question text   */
-        TextView titleView = new TextView(context);
-        titleView.setPadding(0,200,0,50);
-        titleView.setText(title);
-        titleView.setTextColor(ContextCompat.getColor(context, R.color.darkGray));
-        titleView.setTextSize(24);
-        contents.addView(titleView); // Add title to the vertical layout
-
-        /*  Create textview and edittext for member ID   */
-        LinearLayout member_id_row = new LinearLayout(context);
-        member_id_row.setOrientation(LinearLayout.HORIZONTAL);
-        member_id_row.setLayoutParams((new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)));
-        member_id_row.setPadding(0,40,0,40);
-        TextView id_label = new TextView(context);
-        id_label.setTextSize(16);
-        id_label.setTextColor(ContextCompat.getColor(context, R.color.darkGray));
-        id_label.setText("Member ID: ");
-        id_label.setLayoutParams(params);
-        id_field = new EditText(context);
-        id_field.setHint("ID");
-        id_field.setLayoutParams(params);
-        id_field.setPadding(20, 20, 20, 20);
-        id_field.setInputType(InputType.TYPE_CLASS_NUMBER);
-        member_id_row.addView(id_label);
-        member_id_row.addView(id_field);
-
-        /*  Create textview and drop down for time period  */
-        LinearLayout time_period_row = new LinearLayout(context);
-        time_period_row.setOrientation(LinearLayout.HORIZONTAL);
-        time_period_row.setLayoutParams((new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)));
-        time_period_row.setPadding(0,40,0,40);
-        TextView time_period_label = new TextView(context);
-        time_period_label.setTextSize(16);
-        time_period_label.setTextColor(ContextCompat.getColor(context, R.color.darkGray));
-        time_period_label.setText("Time period \nauthorized: ");
-        time_period_label.setLayoutParams(params);
-        ArrayList<String> spinnerArray = new ArrayList<String>(
-                Arrays.asList("Monthly", "Every other month", "Quarterly", "Bi-annually", "Annually"));
-        time_field = new Spinner(context);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-        time_field.setAdapter(spinnerArrayAdapter);
-        time_field.setLayoutParams(params);
-        time_period_row.addView(time_period_label);
-        time_period_row.addView(time_field);
-
-        /*  Create textview and edittext for # of months authorized */
-        LinearLayout num_months_row = new LinearLayout(context);
-        num_months_row.setOrientation(LinearLayout.HORIZONTAL);
-        num_months_row.setLayoutParams((new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)));
-        num_months_row.setPadding(0,40,0,40);
-        TextView num_months_label = new TextView(context);
-        num_months_label.setTextSize(16);
-        num_months_label.setTextColor(ContextCompat.getColor(context, R.color.darkGray));
-        num_months_label.setText("Number of months authorized: ");
-        num_months_label.setLayoutParams(params);
-        num_months_field = new EditText(context);
-        num_months_field.setHint("# of months");
-        num_months_field.setLayoutParams(params);
-        num_months_field.setPadding(20, 20, 20, 20);
-        num_months_field.setLayoutParams(params);
-        num_months_field.setInputType(InputType.TYPE_CLASS_NUMBER);
-        num_months_row.addView(num_months_label);
-        num_months_row.addView(num_months_field);
-
-        /*  Add all three fields to the main vertical layout  */
-        contents.addView(member_id_row);
-        contents.addView(time_period_row);
-        contents.addView(num_months_row);
-    }
-
 
     /*  Constructor for normal RadioButton based questions  */
     Question(final Context context, String t, String d, String...a)

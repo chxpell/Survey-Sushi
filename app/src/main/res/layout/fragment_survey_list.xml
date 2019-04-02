@@ -19,7 +19,7 @@
         android:gravity="center"
         android:includeFontPadding="false"
 
-        android:text="FIND PRODUCTS"
+        android:text="VIEW SURVEYS"
         android:textColor="@color/colorAccent"
         android:textSize="26dp" />
 
@@ -28,10 +28,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/startButton"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="51dp"
         android:layout_marginBottom="150dp"
-        android:layout_centerHorizontal="true"
-        android:text="Let's take some fuckin surveys"
+        android:text="Let's take some surveys"
         android:textColor="@color/colorAccent"
         android:textSize="24dp"
         android:textStyle="bold" />
