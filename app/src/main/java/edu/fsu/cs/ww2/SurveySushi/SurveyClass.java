@@ -103,11 +103,10 @@ public class SurveyClass extends AppCompatActivity {
 
     }
 
-
     /*
      *   Question ID (its place in line)
-     *   Question text (What is your gender?
-     *   Question description (one word description used for matching
+     *   Question text (What is your gender?)
+     *   Question description (one word description used for matching)
      *   Strings for each answer choie
      */
     private void addQuestion(Context context, String title, String description, String...aAnswers)
@@ -280,25 +279,9 @@ public class SurveyClass extends AppCompatActivity {
     private boolean questionIsAnswered()
     {
         Question current = questions.get(questionMap.get(currentQuestion));
-        if(current.getDescription().equals("basic_info")) // If we are on the basic information question, additional error checking is required
-        {
-            if(current.getTimePeriod().equals("") || current.getNumMonthsAuthorized().equals("") || current.getMemberID().equals(""))
-                return false;
-            else
-            {
-                /*  Gather the information from each field, and push them to the answers map individually   */
-                String result = current.getTimePeriod() + "," + current.getNumMonthsAuthorized() + "," + current.getMemberID();
-                answers.put("member_id", current.getMemberID());
-                answers.put("time_period", current.getTimePeriod());
-                answers.put("num_months_authorized", current.getNumMonthsAuthorized());
-                current.setAnswer(result); // Set the answer field in the question to the concatenation of the info. This currently has no usage other than to prevent the field from being null
-            }
-        }
-        else // Otherwise, we are on a normal radio-button based question and we can simply check the answer field
-        {
-            if(current.getAnswer() == null)
-                return false;
-        }
+        if(current.getAnswer() == null)
+            return false;
+
         return true;
     }
 
@@ -325,10 +308,7 @@ public class SurveyClass extends AppCompatActivity {
         return alert;
     }
 }
-
-
 /**************************************************************************************************/
-
 
 class Question
 {
@@ -417,20 +397,12 @@ class Question
     /*  Return the one word description of the question */
     public String getDescription() { return description;}
 
-    /*  Return number of months authorized  */
-    public String getNumMonthsAuthorized() { return num_months_field.getText().toString();}
-
-    /*  Return member ID    */
-    public String getMemberID() { return id_field.getText().toString();}
-
-    /*  Return the time period for authorization    */
-    public String getTimePeriod() { return time_field.getSelectedItem().toString();}
-
     /*  Set the answer for the question */
     public void setAnswer(String answer)
     {
         this.answer = answer;
     }
+
     /* Get height of screen */
     private int getScreenHeight()
     {
