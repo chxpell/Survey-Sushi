@@ -79,7 +79,6 @@ public class SurveyClass extends AppCompatActivity {
         questionMap = new HashMap<Integer, String>();   // Key = question position in the survey (0,1,2..). Value = question description
 
 
-
         currentQuestion = 0;    // used during execution of survey to keep track of questions
         questionIndex = 0; // used to populate hahsmaps
 
