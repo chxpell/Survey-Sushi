@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.placeholder_home, new SurveyListFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.placeholder_home, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.fragment_home);
         }
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch(menuItem.getItemId()) {
             case R.id.home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.placeholder_home, new SurveyListFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.placeholder_home, new HomeFragment()).commit();
                 break;
             case R.id.history:
                 getSupportFragmentManager().beginTransaction().replace(R.id.placeholder_home, new HistoryFragment()).commit();
