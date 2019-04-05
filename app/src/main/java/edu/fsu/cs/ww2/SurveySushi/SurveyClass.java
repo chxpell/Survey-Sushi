@@ -106,19 +106,11 @@ public class SurveyClass extends AppCompatActivity {
      *   Question ID (its place in line)
      *   Question text (What is your gender?)
      *   Question description (one word description used for matching)
-     *   Strings for each answer choie
+     *   Strings for each answer choice
      */
     private void addQuestion(Context context, String title, String description, String...aAnswers)
     {
         Question q = new Question(context, title, description, aAnswers);
-        questions.put(q.getDescription(),q);
-        questionMap.put(questionIndex++, description);
-    }
-
-    /*  Add question asking for member ID, time period auth, and number of months authorized  */
-    private void addInfoQuestion(Context context, String title, String description)
-    {
-        Question q = new Question(context, title, description);
         questions.put(q.getDescription(),q);
         questionMap.put(questionIndex++, description);
     }
