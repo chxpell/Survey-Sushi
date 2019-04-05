@@ -32,6 +32,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,12 +43,12 @@ public class SurveyClass extends AppCompatActivity {
     private LinearLayout verticalLayout;
     private Button nextButton, backButton, exitButton;
     private boolean scrolling; // true if the user is touching the screen
-
+    private Survey survey;
     private int currentQuestion, questionIndex;
     private HashMap<String, Question> questions; // Stores each question, seeded by its description
     private HashMap<String, String> answers;     // Stores the answers to each question, seeded by description
     private HashMap<Integer, String> questionMap;   // Stores the description of the question, seeded by its place in line
-
+    private int question_desc = 0; // Keeps a unique description for eac survey
     private Context ctx;
 
     public SurveyClass() {
@@ -85,17 +87,18 @@ public class SurveyClass extends AppCompatActivity {
         /*  Add listeners for buttons in the form */
         addListeners(this);
 
-        /*  Add questions for survey */
-        addQuestion(this, "Member's gender is",  "gender", "Male", "Female");
-        addQuestion(this, "Member's incontinence issues are",  "type",
-                "Urinary", "Urinary and fecal");
-        addQuestion(this, "Member's activity level is",  "activity",
-                "Very Active (leaves home every day)", "Moderately Active (leaves home during the week)", "Minimally Active (leaves home less than 3x per week)", "Homebound (stays at home)", "Bed-bound (stays at home unable to move independently)", "Adult Daycare");
-        addQuestion(this, "Member's incontinence occurs",  "frequency",
-                "Rarely (stress-related)", "0-1 times per day (light)",  "2-3 times per day (Intermittent)", "4 or more times per day (Full)", "Only at night");
-        addQuestion(this, "Member's incontinence severity is",  "impact",
-                "Soak Clothing", "Soak Undergarment", "Spotting", "Soiled");
+        /*  Retrieve survey from surveylist and add each question to the view */
+        this.survey = (Survey) getIntent().getSerializableExtra("survey_object");
 
+        Iterator it = survey.question_strings.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+
+            /*  This is an ugly one, but it extracts all of the values from the survey and it's question_strings map    */
+            addQuestion(ctx, (String) pair.getKey(), String.valueOf(question_desc++), ((ArrayList<String>) pair.getValue()).toArray(new String[((ArrayList<String>) pair.getValue()).size()]));
+
+            it.remove(); // avoids a ConcurrentModificationException
+        }
 
         /*  Add first question to layout. The rest will be added with each click of the next button */
         verticalLayout.addView(questions.get(questionMap.get(0)).getContents());
@@ -388,6 +391,11 @@ class Question
     /*  Return the one word description of the question */
     public String getDescription() { return description;}
 
+    /*  Return title to survey as string    */
+    public String getTitle() { return title;}
+
+    /*  Return arraylist of answers */
+    public ArrayList<String> getAnswers() { return answers;}
     /*  Set the answer for the question */
     public void setAnswer(String answer)
     {

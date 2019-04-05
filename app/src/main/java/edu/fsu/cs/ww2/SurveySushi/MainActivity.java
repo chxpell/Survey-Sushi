@@ -75,15 +75,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    public void buttonClick(View v) {
-        switch(v.getId()) {
-            case R.id.startButton:
 
-                /*  Start the survey activity   */
-                Intent myIntent = new Intent(MainActivity.this, SurveyClass.class);
-                startActivity(myIntent);
-
-                break;
-        }
-    }
 }

@@ -9,4 +9,7 @@
     <string name="phone_number">305-948-6429</string>
     <string name="hours">Monday - Friday 9:00 AM to 5:30 PM</string>
     <string name="surfmed">SurfMed</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

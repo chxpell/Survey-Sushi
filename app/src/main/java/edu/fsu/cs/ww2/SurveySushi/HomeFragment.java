@@ -28,8 +28,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.startButton:
-                Intent myIntent = new Intent(getContext(), SurveyClass.class);
-                startActivity(myIntent);
+                SurveyListFragment nextFrag= new SurveyListFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.placeholder_home, nextFrag, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
                 break;
         }
     }
