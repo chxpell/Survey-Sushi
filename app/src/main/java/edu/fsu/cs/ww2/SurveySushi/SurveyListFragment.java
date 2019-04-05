@@ -41,6 +41,12 @@ public class SurveyListFragment extends Fragment {
         addListeners();
 
         /*  Create dummy surveys to test the class
+         * STEPS TO CREATE A SURVEY MANUALLY:
+         *      - Create a HashMap<String, ArrayList<String>>> to hold the question and its answers
+         *      - Create ArrayList<String> objects for each question. This ArrayList should hold ONLY the answer choices for hte question
+         *      - use put(String, ArrayList) on the HashMap from step 1, where String is the question text itself, and the ArrayList is the list from step 2
+         *      - Create a Survey Object with relevant fields from the constructor, and pass the question you created in step 1 as the last parameter
+         *      - do surveys.add(Survey) to add the new survey to the ArrayList of surveys
          * TODO: Instead of creating surveys like this, replace this with a method to collect surveys from the database
          */
 
