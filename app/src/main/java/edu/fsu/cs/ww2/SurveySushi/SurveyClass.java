@@ -312,8 +312,7 @@ class Question
     private LinearLayout contents;
     private String answer;
     final RadioGroup rg;
-    final EditText id_field, num_months_field;
-    final Spinner time_field;
+
 
     /*  Constructor for normal RadioButton based questions  */
     Question(final Context context, String t, String d, String...a)
@@ -322,9 +321,6 @@ class Question
         this.title = t;
         this.description = d;
         this.answers.addAll(Arrays.asList(a));
-        this.id_field = null;
-        this.time_field = null;
-        this.num_months_field = null;
 
         /*  Set up vertical layout to hold question title and radiogroup    */
         contents = new LinearLayout(context);
