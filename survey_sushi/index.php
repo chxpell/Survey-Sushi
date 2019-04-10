@@ -2,13 +2,18 @@
 
 <style>
 
-.homepage_button{
-  background: #5f2c82;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #49a09d, #5f2c82);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-padding:5rem;
-color:white;
-border-radius: 2rem;
+.button1{
+  padding:2.5rem;
+  background:#cf5351;
+  color:white;
+  border-radius:1rem;
+  font-weight:800;
+  font-size:2.5rem;
+}
+
+.button1:hover{
+  text-decoration:none;
+  color:#f9dbdb;
 }
 
 .homepage_button:hover{
@@ -26,21 +31,27 @@ color:yellow;
 
     <div class="container">
 
-<!-- Title Message -->
-<div class "row" style = "margin-bottom:10rem;">
-      <div class="starter-template">
-        <h1>Survey Sushi</h1>
-      </div>
-    </div>
+
 
     <!-- Call to action buttons -->
-      <div class = "row text-center">
+      <div class = "row" style = "margin-top:10rem;">
 
-        <div class = "col-sm-12" style = "">
-          <a class = "homepage_button">
-Looking to Create Surveys?
-</a>
+        <div class = "col-sm-6">
+            <h1 style = "color:#cf5351; font-size:7rem;">Survey Sushi</h1>
+            <p style = "font-size:3rem; margin-bottom:5rem;">
+A revolutionary new survey platform that works for both the user
+and the administrator.
+            </p>
+            <a class = "button1 "style = "">
+              Get Started
+            </a>
         </div>
+
+        <div class = "col-sm-6 text-center" style = "">
+    <img src = "https://media2.giphy.com/media/1Aj2uigSIg1ET0iOlD/source.gif"
+    style = "height:25rem; width:auto;">
+        </div>
+
 
 
       </div>

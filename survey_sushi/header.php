@@ -1,4 +1,23 @@
 <!DOCTYPE html>
+
+
+<!-- Question Generator Script -->
+
+<script type = "text/javascript"
+         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+      </script>
+
+<?php
+
+session_start();
+
+ ?>
+
+
+
+
+
+
 <style>
 body {
   padding-top: 50px;
@@ -11,11 +30,22 @@ body {
 h1{
   margin-left:3rem;
 }
+
+body {
+  background: #f1f1f1;
+  font-family: 'Roboto', sans-serif;
+}
+
+
 </style>
 
 
 <!-- Login Form CSS -->
 <style>
+
+#survey{
+  display:none;
+}
 
 .log-form {
   width: 40%;
@@ -124,6 +154,7 @@ h1{
 function LoggedIn(name) {
   document.getElementById("login").style.display = "none";
   document.getElementById("welcome").style.display = "block";
+  document.getElementById("survey").style.display = "block";
   document.getElementById("logout").style.display = "block";
   document.getElementById("welcome").innerHTML = "Online: " + name;
 }
@@ -144,6 +175,7 @@ function LoggedIn(name) {
     <!-- Bootstrap core CSS -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
 
+
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -156,7 +188,8 @@ function LoggedIn(name) {
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style = "
+    background:#cf5351;">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -168,10 +201,22 @@ function LoggedIn(name) {
           <a class="navbar-brand" href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/">Survey Sushi</a>
         </div>
         <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" style = "">
             <li class=""><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/">Home</a></li>
             <li id = "login" ><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/login.php">Login</a></li>
+            <li id = "survey" ><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/create_survey.php">Create Surveys</a></li>
             <li><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/references.php">References</a></li>
+<style>
+.nav li a{
+  color:white !important;
+}
+
+.navbar-brand{
+  color:white !important;
+}
+</style>
+
+
           </ul>
         </div><!--/.nav-collapse -->
         <div id = "logout" style = "display:none; float:right; color:white;">

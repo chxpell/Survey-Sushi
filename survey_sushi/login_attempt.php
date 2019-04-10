@@ -10,7 +10,7 @@ $result = mysql_query("SELECT * FROM user_auth");
 <div class = "container-fluid" style = "margin-top:5rem;">
 
   <?php
-  session_start();
+
 $_SESSION['name'] = $_POST['username'];
 $_SESSION['password'] = $_POST['password'];
 ?>
@@ -47,7 +47,7 @@ if ($login != "Yes"){
 
 <?php
 
-  
+
 }
 mysql_close($link);
 ?>
