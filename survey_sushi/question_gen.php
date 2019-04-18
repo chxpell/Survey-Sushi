@@ -4,7 +4,7 @@ if($_SESSION['numquestions'])>0{
 
   ?>
 
-  <form id="myForm" method="post">
+  <form id="question_form" method="post">
     <label style = "line-height:2rem;" for="">Question</label>
     <textarea rows="3" name = "description"
     id = "description" type="text" class="form-control"></textarea> <br/>
