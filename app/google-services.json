@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "881485953377",
+    "firebase_url": "https://survey-sushi-9580d.firebaseio.com",
+    "project_id": "survey-sushi-9580d",
+    "storage_bucket": "survey-sushi-9580d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881485953377:android:5ad76ec41ab46308",
+        "android_client_info": {
+          "package_name": "edu.fsu.cs.ww2.SurveySushi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881485953377-rfn04vse8io8qm5050jsdjioc21cu1do.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.fsu.cs.ww2.SurveySushi",
+            "certificate_hash": "5d0c7b01df372592509f3abd7b042c649fa32308"
+          }
+        },
+        {
+          "client_id": "881485953377-s41viv266d7dnv57dtu3rr69m4a4uacu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT5BR9N8qIr-1H9fYC81phsp72WQWBHsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881485953377-s41viv266d7dnv57dtu3rr69m4a4uacu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

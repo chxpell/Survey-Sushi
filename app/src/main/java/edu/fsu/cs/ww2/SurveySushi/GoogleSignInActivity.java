@@ -16,15 +16,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.util.ArrayList;
-
-import edu.fsu.cs.ww2.SurveySushi.R;
 
 /**
  * Demonstrate Firebase Authentication using a Google ID Token.
@@ -46,7 +44,8 @@ public class GoogleSignInActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        setContentView(R.layout.activity_google_sign_in);
+
 
         // Views
         mStatusTextView = findViewById(R.id.status);
@@ -64,7 +63,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                 .requestEmail()
                 .build();
         // [END config_signin]
-
+        FirebaseApp.initializeApp(this);
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         // [START initialize_auth]
@@ -175,44 +174,19 @@ public class GoogleSignInActivity extends BaseActivity implements
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
-        if (user != null) {
-            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-
-            DBAccess.assignUser(user);
-
-            findViewById(R.id.signInButton).setVisibility(View.GONE);
-            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
-
-            Player myGuy = new Player(user.getDisplayName(), user.getUid());
-
-            //unsure if we need to assign this user, but just in case
-            DBAccess.assignUser(user);
-            if(DBAccess.addPlayer(myGuy)){
-                startGame(myGuy, new ArrayList<Player>());
-
-            }
-            else{
-                Log.wtf("debug", "from SignIn: FUCK");
-                Log.i("debug", "from SignIn: FUCK");
-            }
-
+        if (user != null)
+        {
+            /*  Start app if login is successful    */
+            Intent i = new Intent(GoogleSignInActivity.this, MainActivity.class);
+            startActivity(i);
         } else {
-            mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
+
 
             findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
         }
     }
-    private void startGame(Player player, ArrayList<Player> allPlayers) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("mainPlayer", player);
-        bundle.putParcelableArrayList("allPlayers", allPlayers);
-        Intent intent = new Intent(GoogleSignInActivity.this, GameActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+
 
     @Override
     public void onClick(View v) {
