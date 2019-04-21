@@ -378,7 +378,7 @@ class Question
         contents.addView(rg);
     }
 
-    /*  Returns the main layout holding the question, so it can be added to the scroll view in the survey */
+    /*  Returns the main` layout holding the question, so it can be added to the scroll view in the survey */
     public LinearLayout getContents() { return contents; }
 
     /*  Return the answer to the question as a string   */
