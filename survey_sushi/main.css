@@ -1,0 +1,311 @@
+/*
+
+Survey Sushi
+
+main.css
+- Global styles
+- Login Form styles
+- Survey Form Styles
+
+
+*/
+
+
+/*
+
+
+
+Global Styles
+
+
+
+
+ */
+
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+h1{
+  margin-left:3rem;
+}
+
+body {
+  background: #ffffff;
+  font-family: 'Roboto', sans-serif;
+}
+
+div, a, body{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.nav li a{
+  color:white !important;
+}
+
+.navbar-brand{
+  color:white !important;
+}
+
+.butt{
+  padding-top: 1rem;
+  padding-left:2rem;
+  padding-right:2rem;
+  padding-bottom:1rem;
+}
+
+#Welcome2{
+margin-top:10rem;
+}
+
+
+/*
+
+
+
+Login Form
+
+
+
+*/
+
+#survey{
+  display:none;
+}
+
+.log-form {
+  width: 40%;
+  min-width: 320px;
+  max-width: 475px;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+}
+@media (max-width: 40em) {
+  .log-form {
+    width: 95%;
+    position: relative;
+    margin: 2.5% auto 0 auto;
+    left: 0%;
+    -webkit-transform: translate(0%, 0%);
+    -moz-transform: translate(0%, 0%);
+    -o-transform: translate(0%, 0%);
+    -ms-transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
+  }
+}
+.log-form form {
+  display: block;
+  width: 100%;
+  padding: 2em;
+}
+.log-form h2 {
+  color: white;
+  font-size: 1.35em;
+  display: block;
+  background: #cf5351;
+  width: 100%;
+  text-transform: uppercase;
+  padding: 0.75em 1em 0.75em 1.5em;
+  box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05);
+  border: 1px solid #1d1d1d;
+  margin: 0;
+  font-weight: 200;
+}
+.log-form input {
+  display: block;
+  margin: auto auto;
+  width: 100%;
+  margin-bottom: 2em;
+  padding: 0.5em 0;
+  border: none;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 1.25em;
+  color: #757575;
+}
+.log-form input:focus {
+  outline: none;
+}
+.log-form .btn {
+  display: inline-block;
+  background: #1fb5bf;
+  border: 1px solid #1ba0a9;
+  padding: 0.5em 2em;
+  color: white;
+  margin-right: 0.5em;
+  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
+}
+.log-form .btn:hover {
+  background: #23cad5;
+}
+.log-form .btn:active {
+  background: #1fb5bf;
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.log-form .btn:focus {
+  outline: none;
+}
+.log-form .forgot {
+  color: #33d3de;
+  line-height: 0.5em;
+  position: relative;
+  top: 2.5em;
+  text-decoration: none;
+  font-size: 0.75em;
+  margin-top:-3rem;
+  padding: 0;
+  float: right;
+}
+.log-form .forgot:hover {
+  color: #1ba0a9;
+}
+
+
+}
+
+/*
+
+
+
+Survey Creator Form
+
+
+*/
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900);
+.contact-form {
+  margin-top: 30px;
+}
+.contact-form .input-block {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: solid 1px #4B4453;
+  width: 100%;
+  height: 60px;
+  padding: 5rem;
+  position: relative;
+  margin-bottom: 20px;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.contact-form .input-block.focus {
+  background-color: #fff;
+  border: solid 1px #fb2900;
+}
+.contact-form .input-block.textarea {
+  height: auto;
+}
+.contact-form .input-block.textarea .form-control {
+  height: auto;
+  resize: none;
+}
+.contact-form .input-block label {
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  display: block;
+  margin: 0;
+  font-weight: 300;
+  z-index: 1;
+  color: #333;
+  font-size: 18px;
+  line-height: 10px;
+}
+
+.contact-form .input-block input {
+margin-top:1.5rem;
+}
+
+.contact-form .input-block textarea {
+margin-top:1.5rem;
+}
+.contact-form .input-block .form-control {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  font-size: 18px;
+  color: #333;
+}
+.contact-form .input-block .form-control:focus label {
+  top: 0;
+}
+.contact-form .square-button {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 0 60px;
+  height: 60px;
+  border: none;
+  width: 100%;
+}
+.contact-form .square-button:hover, .contact-form .square-button:focus {
+  background-color: white;
+}
+
+@media (min-width: 768px) {
+  .contact-wrap {
+    width: 60%;
+    margin: auto;
+  }
+}
+/*----page styles---*/
+
+
+.contact-wrap {
+  padding: 15px;
+}
+
+
+.made-with-love {
+  margin-top: 40px;
+  padding: 10px;
+  clear: left;
+  text-align: center;
+  font-size: 10px;
+  font-family: arial;
+  color: #fff;
+}
+.made-with-love i {
+  font-style: normal;
+  color: #F50057;
+  font-size: 14px;
+  position: relative;
+  top: 2px;
+}
+.made-with-love a {
+  color: #fff;
+  text-decoration: none;
+}
+.made-with-love a:hover {
+  text-decoration: underline;
+}

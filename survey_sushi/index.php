@@ -42,9 +42,11 @@ color:yellow;
 A revolutionary new survey platform that works for both the user
 and the administrator.
             </p>
+            <!--
             <a class = "button1 "style = "">
               Get Started
             </a>
+          -->
         </div>
 
         <div class = "col-sm-6 text-center" style = "">

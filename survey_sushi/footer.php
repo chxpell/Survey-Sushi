@@ -1,14 +1,14 @@
-<!-- Bootstrap core JavaScript
-================================================== -->
-<style>
-.butt{
-  padding-top: 1rem;
-  padding-left:2rem;
-  padding-right:2rem;
-  padding-bottom:1rem;
-}
 
-</style>
+
+
+
+<!--
+
+Survey Question Form JavaScript
+
+Must be in .php file because php session variables are being used.
+
+-->
 
 <script>
 
@@ -17,7 +17,7 @@ var question_descriptions = [];
 var question_num = 0;
 var question_answers = [[],[]];
 var survey = {};
-
+var email = "";
 /*
 Takes in Question Generator Description & Number of Answers
 Next Step is to Take in Question Answers with SubmitQuestionData()
@@ -121,16 +121,27 @@ function QuestionGenerator(answers,html){
 }
 </script>
 
-<!-- Placed at the end of the document so the pages load faster -->
+<!-- Bootstrap & jQuery -->
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-
-
 
 <!-- Firebase Config -->
 <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-database.js"></script>
+
+<!--
+
+
+Firebase JavaScript
+
+• User Authentication
+• User Creation
+• Survey Creation
+
+-->
+
+
 <script>
 
 
@@ -177,13 +188,14 @@ btnCreate.addEventListener('click',e=>{
 // Listener
 firebase.auth().onAuthStateChanged(firebaseUser =>{
   if (firebaseUser){
-    console.log(firebaseUser)
     console.log("Logged In");
+    LoggedIn();
     document.getElementById("login").style.display = "none";
     document.getElementById("welcome").style.display = "block";
     document.getElementById("survey").style.display = "block";
     document.getElementById("logout").style.display = "block";
     document.getElementById("welcome").innerHTML = "Online: " + firebaseUser.email;
+    email = firebaseUser.email;
   } else {
     console.log("Not Logged In")
   }
@@ -195,13 +207,28 @@ function Logout(){
   document.getElementById("welcome").style.display = "none";
   document.getElementById("survey").style.display = "none";
   document.getElementById("logout").style.display = "none";
+  location.replace("http://ww2.cs.fsu.edu/~egonzale/survey_sushi/");
 }
 
+
+
+
 function LoggedIn(){
-  if (firebaseUser){
-    document.getElementById("welcome2").style.display = "block";
-    document.getElementById("CreateForm").style.display = "none";
+  var welcome_2 = document.getElementById("Welcome2");
+  var createform = document.getElementById("CreateForm");
+  var login_form = document.getElementById("login_form");
+  if (welcome_2){
+    welcome_2.style.display = "block";
   }
+
+  if (createform){
+    createform.style.display = "none";
+  }
+
+  if (login_form){
+    login_form.style.display = "none";
+  }
+
 }
 
 function writeSurvey(){
@@ -209,6 +236,7 @@ var id_gen = Math.floor((Math.random() * 100000000) + 1);
 var survey_id = "survey" + id_gen;
 document.getElementById("surveyId").innerHTML = id_gen;
 
+survey.user = email;
 survey.name = "<?php echo $_SESSION['survey_name'] ?>";
 survey.description = "<?php echo $_SESSION['description'] ?>";
 survey.company = "<?php echo $_SESSION['company'] ?>";
@@ -220,7 +248,6 @@ survey.num_questions = "<?php echo $_SESSION['questions'] ?>";
 
 
 }
-
 
 </script>
 

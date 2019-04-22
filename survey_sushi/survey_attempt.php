@@ -1,6 +1,17 @@
 <?php include 'header.php'; ?>
 
+<!--
 
+Survey Question Creation Page
+• Stores previously submitted Survey Information
+• Creates Amount of Questions based on Given Amount
+• Gives SurveyID upon Survey Creation
+
+-->
+
+
+
+<!-- Saving Data From Previous Form -->
 <?php
 
 session_start();
@@ -14,6 +25,8 @@ $_SESSION['description'] = $_POST['description'];
  ?>
 
 
+
+<!-- Survey Question / Answer Generation -->
  <div id = "surveyComplete" class = "container" style = "margin-top:3rem;">
 
    <h1>
@@ -36,13 +49,19 @@ Question Creator
 
 
 <div class = "col-sm-12">
+
+  <!-- Survey Question / Num Answers Put Here -->
 <div id = "output"></div>
+
+<!-- Survey Answer Input Boxes Put Here -->
 <div id = "output_2" style = "margin-top:5rem;"></div>
 </div>
 
 </div>
  </div>
 
+
+<!-- Survey ID Display -->
  <div class = "container" id = "surveyComplete2" style = "display:none;
  margin-top:5rem;">
 <p>

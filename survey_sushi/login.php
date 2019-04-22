@@ -1,8 +1,18 @@
 <?php include 'header.php'; ?>
 
+<!--
+
+
+User Login Page
+• Login Form
+
+-->
+
 <div class = "container">
 
-  <div class="log-form">
+
+<!-- User Login Form -->
+  <div class="log-form" id = "login_form">
     <h2>Login to your account</h2>
       <input type="text" id = "username" placeholder="username" />
       <input type="password" id = "password" placeholder="password" />
@@ -14,15 +24,6 @@ Submit
 
 </div>
 
-<script>
-
-function loginFormAttempt(){
-    User = document.getElementById("username").value;
-    Pass = document.getElementById("password").value;
-    loginAttempt(User,Pass);
-}
-
-</script>
 
 
 <?php include 'footer.php';?>
