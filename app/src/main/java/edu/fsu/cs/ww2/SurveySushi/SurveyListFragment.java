@@ -52,7 +52,7 @@ public class SurveyListFragment extends Fragment {
          *      - do surveys.add(Survey) to add the new survey to the ArrayList of surveys
          * TODO: Instead of creating surveys like this, replace this with a method to collect surveys from the database
          */
-
+/*
         HashMap<String, ArrayList<String>> q1 = new HashMap<>();
             ArrayList<String> choices_q1_1 = new ArrayList<String>(Arrays.asList("Hated it", "It was alright", "Loved It"));
             ArrayList<String> choices_q1_2 = new ArrayList<>(Arrays.asList("Not a chance", "Yea, I guess", "Absolutely"));
@@ -65,11 +65,14 @@ public class SurveyListFragment extends Fragment {
             q2.put("How old are you?", choices_q2_2);
 
 
+
         Survey s1 = new Survey("satisfaction", "Microsoft", "Ask if customer is satisfied", q1);
         Survey s2 = new Survey("recommendation", "Apple", "Ask if customer would recommend app", q2);
         surveys.add(s1);
         surveys.add(s2);
-
+        */
+        DBAccess db = new DBAccess();
+        db.LoadSurveys();
         /* Add array adapter to listview    */
         surveyList.setAdapter(adapter);
         surveyListContainer.addView(surveyList);

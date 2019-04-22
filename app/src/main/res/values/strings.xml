@@ -1,14 +1,7 @@
 <resources>
-    <string name="app_name">Product Selection Tool</string>
+    <string name="app_name">Survey Sushi</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="subtitle">Guide to Incontinence Care</string>
-    <string name="product_list">Product List</string>
-    <string name="help_page_message">Thank you for using SurfMed’s Product Selection Tool.  The answers provided require additional clarification.  Please call the number below to complete product selection</string>
-    <string name="customer_assistance">Customer Assitance Contact</string>
-    <string name="phone_number">305-948-6429</string>
-    <string name="hours">Monday - Friday 9:00 AM to 5:30 PM</string>
-    <string name="surfmed">SurfMed</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
