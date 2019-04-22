@@ -5,16 +5,17 @@
 
 ## Website - To Do
 
-#### Create Interface For Admins To Make Questions
-- Interface Created, Just need to correctly store survey info in tables.
 #### Create Interface For Admins To View Analytics of Surveys
+
+#### Error Handling
+- Login/Account Creation Error Handling
+- Survey Generator Error Handling
 
 ### Website - Completed
 
 #### Survey Creation Page
 #### User Authentication
 #### Account Creation
-
-## App - To Do
+#### Create Interface For Admins To Make Questions
 
 
