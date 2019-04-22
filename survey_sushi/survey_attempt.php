@@ -5,17 +5,16 @@
 
 session_start();
 
-$surveyname = $_POST['survey_name'];
-$company = $_POST['company'];
-$maxattempts = $_POST['max_attempts'];
+$_SESSION['survey_name'] = $_POST['survey_name'];
+$_SESSION['company'] = $_POST['company'];
 $_SESSION['numquestions'] = $_POST['num_questions'];
-$description = $_POST['description'];
-$loopcontinue = 0;
+$_SESSION['questions'] = $_POST['num_questions'];
+$_SESSION['description'] = $_POST['description'];
 
  ?>
 
 
- <div class = "container" style = "margin-top:3rem;">
+ <div id = "surveyComplete" class = "container" style = "margin-top:3rem;">
 
    <h1>
 Question Creator
@@ -41,10 +40,17 @@ Question Creator
 <div id = "output_2" style = "margin-top:5rem;"></div>
 </div>
 
-
-
-
 </div>
+ </div>
+
+ <div class = "container" id = "surveyComplete2" style = "display:none;
+ margin-top:5rem;">
+<p>
+Your Survey Has Been Successfully Created!
+</p>
+<p>
+Your Survey ID Is <p id = "surveyId"></p>
+</p>
  </div>
 
 

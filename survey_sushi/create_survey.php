@@ -28,12 +28,6 @@ Survey Creator
           <input name = "company" type="text" class="form-control">
         </div>
       </div>
-      <div class="col-sm-12" style = "">
-        <div class="input-block">
-          <label for="">Maximum Survey Takers (If No Limit Type "N/A")</label>
-          <input name = "max_attempts" type="text" class="form-control">
-        </div>
-      </div>
       <div class="col-sm-12">
         <div class="input-block">
           <label for="">Desired Amount of Questions</label>
@@ -58,14 +52,13 @@ Survey Creator
 </div>
 
 
-
-
-
 </div>
 
 </div>
 
 
+
+<!-- Survey Form Styles -->
 <style>
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900);
 .contact-form {

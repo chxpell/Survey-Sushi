@@ -1,18 +1,21 @@
 <?php include 'header.php'; ?>
 
+
 <div class = 'container-fluid'>
 
-<div class="log-form">
+<div class="log-form" id = "CreateForm">
   <h2>Account Creation</h2>
-  <form action="./account_attempt.php" method='post'>
-    <input type="text" name = "username" title="username" placeholder="username" />
-    <input type="password" name = "password" title="username" placeholder="password" />
-    <input type="submit" name="submit" value="Submit">
-  </form>
+    <input type="text" id = "namefield" title="username" placeholder="email" />
+    <input type="password" id = "passfield" title="username" placeholder="password" />
+    <button id = "btnCreate" class = "butt" placeholder = "Submit" onclick = "">
+Create Account
+</button>
+</div>
+
+<div id = "Welcome2" style = "display:none;">
+Account Successfully Created!
 </div>
 
 </div>
 
-<?php
-include 'footer.php';
-?>
+<?php include 'footer.php'; ?>

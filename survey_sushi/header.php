@@ -7,16 +7,7 @@
          src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
       </script>
 
-<?php
-
-session_start();
-
- ?>
-
-
-
-
-
+<?php session_start(); ?>
 
 <style>
 body {
@@ -150,15 +141,6 @@ body {
 
 </style>
 
-<script>
-function LoggedIn(name) {
-  document.getElementById("login").style.display = "none";
-  document.getElementById("welcome").style.display = "block";
-  document.getElementById("survey").style.display = "block";
-  document.getElementById("logout").style.display = "block";
-  document.getElementById("welcome").innerHTML = "Online: " + name;
-}
-</script>
 
 
 <html lang="en">
@@ -220,9 +202,9 @@ function LoggedIn(name) {
           </ul>
         </div><!--/.nav-collapse -->
         <div id = "logout" style = "display:none; float:right; color:white;">
-          <form action="./logout.php" method='post'>
-            <input type="submit" name="submit" value="Logout">
-          </form>
+          <button id = "btnLogout" onclick = "Logout()"class = "butt" placeholder = "Submit" onclick = "">
+      Logout
+      </button>
         </div>
         <div id = "welcome" style = "float:right; color:white; display:none;
         margin-right:2rem;">
