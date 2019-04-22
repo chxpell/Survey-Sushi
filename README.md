@@ -5,7 +5,7 @@
 
 ## Website - To Do
 
-#### Create Interface For Admins To View Analytics of Surveys
+#### Analytics Page
 
 #### Error Handling
 - Login/Account Creation Error Handling
@@ -13,9 +13,9 @@
 
 ### Website - Completed
 
-#### Survey Creation Page
-#### User Authentication
-#### Account Creation
-#### Create Interface For Admins To Make Questions
+- Survey Creation Page
+- Question Creation Page
+- User Authentication
+- Account Creation
 
 
