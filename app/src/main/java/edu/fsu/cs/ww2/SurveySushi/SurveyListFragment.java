@@ -1,6 +1,7 @@
 package edu.fsu.cs.ww2.SurveySushi;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class SurveyListFragment extends Fragment {
     private ArrayList<Survey> surveys; // Store all available surveys from database
     private LinearLayout surveyListContainer;
     private ArrayAdapter<Survey> adapter;
+    private ProgressDialog mProgressDialog;
 
     @Nullable
     @Override
@@ -50,34 +52,10 @@ public class SurveyListFragment extends Fragment {
         /* Set button listener  */
         addListeners();
 
-        /*  Create dummy surveys to test the class
-         * STEPS TO CREATE A SURVEY MANUALLY:
-         *      - Create a HashMap<String, ArrayList<String>>> to hold the question and its answers
-         *      - Create ArrayList<String> objects for each question. This ArrayList should hold ONLY the answer choices for hte question
-         *      - use put(String, ArrayList) on the HashMap from step 1, where String is the question text itself, and the ArrayList is the list from step 2
-         *      - Create a Survey Object with relevant fields from the constructor, and pass the question you created in step 1 as the last parameter
-         *      - do surveys.add(Survey) to add the new survey to the ArrayList of surveys
-         * TODO: Instead of creating surveys like this, replace this with a method to collect surveys from the database
-         */
-/*
-        HashMap<String, ArrayList<String>> q1 = new HashMap<>();
-            ArrayList<String> choices_q1_1 = new ArrayList<String>(Arrays.asList("Hated it", "It was alright", "Loved It"));
-            ArrayList<String> choices_q1_2 = new ArrayList<>(Arrays.asList("Not a chance", "Yea, I guess", "Absolutely"));
-            q1.put("Did you enjoy using our app?", choices_q1_1);
-            q1.put("How likely are you to recommend our app to a friend", choices_q1_2);
-        HashMap<String, ArrayList<String>> q2 = new HashMap<>();
-            ArrayList<String> choices_q2_1 = new ArrayList<String>(Arrays.asList("I wouldn't", "I would"));
-            ArrayList<String> choices_q2_2 = new ArrayList<>(Arrays.asList("Under 18", "18-24", "25-40", "40+"));
-            q2.put("Would you recommend this app to a friend?", choices_q2_1);
-            q2.put("How old are you?", choices_q2_2);
-
-
-
-        Survey s1 = new Survey("satisfaction", "Microsoft", "Ask if customer is satisfied", q1);
-        Survey s2 = new Survey("recommendation", "Apple", "Ask if customer would recommend app", q2);
-        surveys.add(s1);
-        surveys.add(s2);
-        */
+        /*  Show loading dialog */
+        mProgressDialog = new ProgressDialog(getContext());
+        mProgressDialog.setMessage("Work ...");
+        mProgressDialog.show();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         ValueEventListener vel = new ValueEventListener() {
             @Override
@@ -87,13 +65,11 @@ public class SurveyListFragment extends Fragment {
                     s.print();
                     s.BuildQuestionArray();
                     surveys.add(s);
-
-
-
-
+                    mProgressDialog.dismiss();
                 }
 
                 if (surveys.size() == 0) {
+                    /*  If no surveys are found, print it in a snackbar */
                     Snackbar snackbar = Snackbar
                             .make(getActivity().findViewById(android.R.id.content), "No surveys found!", Snackbar.LENGTH_LONG);
                     snackbar.show();
@@ -108,6 +84,7 @@ public class SurveyListFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError dbErr)
             {
                 Log.i("CANCELLED", "onCancelled", dbErr.toException());
+                mProgressDialog.dismiss();
             }
         };
 
