@@ -2,6 +2,7 @@ package edu.fsu.cs.ww2.SurveySushi;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
@@ -29,10 +31,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,6 +53,7 @@ public class SurveyClass extends AppCompatActivity {
     private Button nextButton, backButton, exitButton;
     private boolean scrolling; // true if the user is touching the screen
     private Survey survey;
+    private ProgressDialog mProgressDialog;
     private int currentQuestion, questionIndex;
     private HashMap<String, Question> questions; // Stores each question, seeded by its description
     private HashMap<String, String> answers;     // Stores the answers to each question, seeded by description
@@ -287,6 +297,8 @@ public class SurveyClass extends AppCompatActivity {
         builder.setMessage(message);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                if(nextButton.getText() == "SUBMIT")
+                    sendResponses();
                 // Go back to main
                 Intent i = new Intent(SurveyClass.this, MainActivity.class);
                 startActivity(i);
@@ -301,6 +313,50 @@ public class SurveyClass extends AppCompatActivity {
         AlertDialog alert = builder.create();
         return alert;
     }
+
+    /*  Update response count in database   */
+    private void sendResponses() {
+        mProgressDialog = new ProgressDialog(SurveyClass.this);
+        mProgressDialog.setMessage("Retrieving Surveys");
+        mProgressDialog.show();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        final DatabaseReference ref = database.getReference().child("responses").child("survey" + survey.getSurveyId()).child("question_data");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+                try {
+                    for(int i = 0; i < questions.size(); i++)
+                    {
+
+                        int index = questions.get(questionMap.get(i)).getAnswerNumber();
+                        List old_values = (List<Long>) dataSnapshot.child("" + i).getValue();
+                            List<Long> new_values = new ArrayList<Long>(old_values);
+                            new_values.set(index, ((Long) old_values.get(index) + 1));
+                       System.out.println("OLD: " + old_values);
+                       System.out.println("NEW: " + new_values);
+                        System.out.println("Question number: " + questionMap.get(i));
+                        System.out.println("\tAnswer: " + questions.get(questionMap.get(i)).getAnswer());
+                        System.out.println("\tAnswer number: " + questions.get(questionMap.get(i)).getAnswerNumber());
+
+                        dataSnapshot.child("" + i).getRef().setValue(new_values);
+                    }
+                    //ref.child("responses").child(String.valueOf(survey.getSurveyId())).child("leftSpace").setValue("YourDateHere");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mProgressDialog.dismiss();
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("User", databaseError.getMessage());
+            }
+        });
+    }
 }
 /**************************************************************************************************/
 
@@ -311,6 +367,7 @@ class Question
     final Context context;
     private LinearLayout contents;
     private String answer;
+    private int answer_number;
     final RadioGroup rg;
 
 
@@ -371,6 +428,7 @@ class Question
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
                 answer = checkedRadioButton.getText().toString();
+                answer_number  = rg.indexOfChild(group.findViewById(rg.getCheckedRadioButtonId()));
             }
         });
 
@@ -397,6 +455,8 @@ class Question
     {
         this.answer = answer;
     }
+
+    public int getAnswerNumber() { return answer_number;}
 
     /* Get height of screen */
     private int getScreenHeight()
