@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ public class SurveyListFragment extends Fragment {
     private ListView surveyList;
     private ArrayList<Survey> surveys; // Store all available surveys from database
     private LinearLayout surveyListContainer;
+    private ArrayAdapter<Survey> adapter;
 
     @Nullable
     @Override
@@ -44,7 +46,6 @@ public class SurveyListFragment extends Fragment {
         surveyListContainer = view.findViewById(R.id.surveyListContainer);
         surveyList = new ListView(getActivity());
         surveys = new ArrayList<Survey>();
-        ArrayAdapter<Survey> adapter = new surveyAdapter(getContext(), 0, surveys);
 
         /* Set button listener  */
         addListeners();
@@ -81,12 +82,27 @@ public class SurveyListFragment extends Fragment {
         ValueEventListener vel = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("~~Please");
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     Survey s = childSnapshot.getValue(Survey.class);
                     s.print();
+                    s.BuildQuestionArray();
+                    surveys.add(s);
+
+
+
 
                 }
+
+                if (surveys.size() == 0) {
+                    Snackbar snackbar = Snackbar
+                            .make(getActivity().findViewById(android.R.id.content), "No surveys found!", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+
+                //---Initialize your adapter as you have fetched the data---\\
+                adapter = new surveyAdapter(getContext(), 0, surveys);
+                surveyList.setAdapter(adapter);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError dbErr)
@@ -96,8 +112,7 @@ public class SurveyListFragment extends Fragment {
         };
 
         mDatabase.addListenerForSingleValueEvent(vel);
-        /* Add array adapter to listview    */
-        surveyList.setAdapter(adapter);
+
         surveyListContainer.addView(surveyList);
         addListeners();
         return view;
@@ -143,16 +158,19 @@ class surveyAdapter extends ArrayAdapter<Survey> {
         View view = inflater.inflate(R.layout.survey_adapter_layout, null);
 
 
-        TextView description = (TextView) view.findViewById(R.id.survey_description);
+        TextView company = (TextView) view.findViewById(R.id.survey_company);
         TextView num_questions = (TextView) view.findViewById(R.id.num_questions);
+        TextView survey_desc = (TextView) view.findViewById(R.id.survey_desc);
 
-        //set company and number of questions
-        String desc_text = survey.company;
-        description.setText(desc_text);
+        /*  Set data fields */
+        String company_text = survey.company;
+        company.setText(company_text);
 
-        String num_questions_text = String.valueOf("Questions: " + survey.question_strings.size());
+        String num_questions_text = String.valueOf(survey.question_strings.size() + " questions");
         num_questions.setText(num_questions_text);
 
+        String desc_text = survey.description;
+        survey_desc.setText(desc_text);
         return view;
     }
 }

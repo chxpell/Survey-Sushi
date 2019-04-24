@@ -3,6 +3,7 @@ package edu.fsu.cs.ww2.SurveySushi;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class Survey implements Serializable {
     //Map<String,String> question_descriptions;
     List<List<String>> question_answers = new ArrayList();
     List<String> question_descriptions = new ArrayList();
-    HashMap<String,ArrayList<String>> question_strings; // Stores question title as key, with an arraylist of answer choices as the value
+    HashMap<String,ArrayList<String>> question_strings = new HashMap(); // Stores question title as key, with an arraylist of answer choices as the value
 
     public Survey() { }
 
@@ -31,6 +32,16 @@ public class Survey implements Serializable {
         this.question_strings = question_strings;
     }
 
+    public void BuildQuestionArray()
+    {
+        // Converts question_answers and question_descriptions into the HashMap
+        int current_question = 0;
+        for(String s : question_descriptions)
+        {
+            question_strings.put(s, (ArrayList) question_answers.get(current_question));
+            current_question++;
+        }
+    }
     public void print()
     {
         System.out.println("Name: " + name);
@@ -64,4 +75,5 @@ public class Survey implements Serializable {
     public String getUser() { return this.user;}
     public List<String> getquestion_descriptions() {return this.question_descriptions;}
     public List<List<String>> getquestion_answers() { return this.question_answers;}
+    public long getSurveyId() { return this.surveyid;}
 }
