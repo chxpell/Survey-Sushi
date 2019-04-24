@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,8 +77,25 @@ public class SurveyListFragment extends Fragment {
         surveys.add(s1);
         surveys.add(s2);
         */
-        DBAccess db = new DBAccess();
-        db.LoadSurveys();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        ValueEventListener vel = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println("~~Please");
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    Survey s = childSnapshot.getValue(Survey.class);
+                    s.print();
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError dbErr)
+            {
+                Log.i("CANCELLED", "onCancelled", dbErr.toException());
+            }
+        };
+
+        mDatabase.addListenerForSingleValueEvent(vel);
         /* Add array adapter to listview    */
         surveyList.setAdapter(adapter);
         surveyListContainer.addView(surveyList);

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -59,8 +60,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.placeholder_home, new SettingsFragment()).commit();
                 break;
-            case R.id.help:
-                getSupportFragmentManager().beginTransaction().replace(R.id.placeholder_home, new HelpFragment()).commit();
+            case R.id.sign_out:
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(MainActivity.this, GoogleSignInActivity.class);
+                startActivity(i);
+//                /getSupportFragmentManager().beginTransaction().replace(R.id.placeholder_home, new HelpFragment()).commit();
                 break;
         }
 

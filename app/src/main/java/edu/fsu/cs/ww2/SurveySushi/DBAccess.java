@@ -1,5 +1,6 @@
 package edu.fsu.cs.ww2.SurveySushi;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,22 +26,25 @@ public class DBAccess {
     }
 
     public ArrayList<Survey> LoadSurveys() {
-        mDatabase.addValueEventListener(new ValueEventListener() {
+
+        ValueEventListener vel = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println("~~Please");
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    String uid = childSnapshot.getKey();
-                    String name = childSnapshot.getValue(String.class);
-                    System.out.println("UID: " + uid);
-                    System.out.println("NAME: " + name);
+                    Survey s = childSnapshot.getValue(Survey.class);
+                    s.print();
+
                 }
             }
             @Override
-            public void onCancelled(DatabaseError dbErr)
+            public void onCancelled(@NonNull DatabaseError dbErr)
             {
                 Log.i("CANCELLED", "onCancelled", dbErr.toException());
             }
-        });
+        };
+
+        mDatabase.addListenerForSingleValueEvent(vel);
 
         return null;
     }
