@@ -66,7 +66,6 @@ public class SurveyListFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     Survey s = childSnapshot.getValue(Survey.class);
-                    s.print();
                     s.BuildQuestionArray();
                     surveys.add(s);
                     mProgressDialog.dismiss();

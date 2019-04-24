@@ -320,28 +320,18 @@ public class SurveyClass extends AppCompatActivity {
         mProgressDialog.setMessage("Retrieving Surveys");
         mProgressDialog.show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-
         final DatabaseReference ref = database.getReference().child("responses").child("survey" + survey.getSurveyId()).child("question_data");
+
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
                 try {
                     for(int i = 0; i < questions.size(); i++)
                     {
-
                         int index = questions.get(questionMap.get(i)).getAnswerNumber();
                         List old_values = (List<Long>) dataSnapshot.child("" + i).getValue();
                             List<Long> new_values = new ArrayList<Long>(old_values);
                             new_values.set(index, ((Long) old_values.get(index) + 1));
-                       System.out.println("OLD: " + old_values);
-                       System.out.println("NEW: " + new_values);
-                        System.out.println("Question number: " + questionMap.get(i));
-                        System.out.println("\tAnswer: " + questions.get(questionMap.get(i)).getAnswer());
-                        System.out.println("\tAnswer number: " + questions.get(questionMap.get(i)).getAnswerNumber());
-
                         dataSnapshot.child("" + i).getRef().setValue(new_values);
                     }
                     //ref.child("responses").child(String.valueOf(survey.getSurveyId())).child("leftSpace").setValue("YourDateHere");
