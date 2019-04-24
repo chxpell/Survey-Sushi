@@ -54,7 +54,7 @@ public class SurveyListFragment extends Fragment {
 
         /*  Show loading dialog */
         mProgressDialog = new ProgressDialog(getContext());
-        mProgressDialog.setMessage("Work ...");
+        mProgressDialog.setMessage("Retrieving Surveys");
         mProgressDialog.show();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         ValueEventListener vel = new ValueEventListener() {
