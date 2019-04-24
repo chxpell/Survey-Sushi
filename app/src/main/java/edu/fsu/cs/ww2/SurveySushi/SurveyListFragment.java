@@ -38,7 +38,8 @@ public class SurveyListFragment extends Fragment {
     private LinearLayout surveyListContainer;
     private ArrayAdapter<Survey> adapter;
     private ProgressDialog mProgressDialog;
-
+    private DatabaseReference mDatabase;
+    private DatabaseReference surveyRef;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +57,10 @@ public class SurveyListFragment extends Fragment {
         mProgressDialog = new ProgressDialog(getContext());
         mProgressDialog.setMessage("Retrieving Surveys");
         mProgressDialog.show();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        /*  Get database references */
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        surveyRef = mDatabase.getRoot().child("surveys");
         ValueEventListener vel = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -88,7 +92,7 @@ public class SurveyListFragment extends Fragment {
             }
         };
 
-        mDatabase.addListenerForSingleValueEvent(vel);
+        surveyRef.addListenerForSingleValueEvent(vel);
 
         surveyListContainer.addView(surveyList);
         addListeners();
