@@ -32,11 +32,27 @@ header.php
 
     <title>Survey Sushi</title>
 
+
+<!-- Charts.js -->
+<script type = "text/javascript"
+         src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js">
+      </script>
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" rel="stylesheet">
+
     <!-- Bootstrap core CSS -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Survey Sushi CSS -->
-<link href="./main.css" rel="stylesheet">
+<link href="./main.css?v3" rel="stylesheet">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i|IBM+Plex+Sans+Condensed:400,400i|IBM+Plex+Sans:100,100i,400,400i,700,700i|IBM+Plex+Serif:400,400i" rel="stylesheet">
+
+<!-- Font Awesome -->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -67,19 +83,36 @@ header.php
             <li class=""><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/">Home</a></li>
             <li id = "login" ><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/login.php">Login</a></li>
             <li id = "survey" ><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/create_survey.php">Create Surveys</a></li>
+            <li id = "survey2" ><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/analytics.php">Analytics</a></li>
             <li><a href="http://ww2.cs.fsu.edu/~egonzale/survey_sushi/references.php">References</a></li>
-
+            <li> <a href = "https://github.com/eremond/Survey-Sushi">
+              Github
+              <i style = "color:white !important;" class="fab fa-github"></i>
+            </a>
+</li>
 
 
           </ul>
         </div><!--/.nav-collapse -->
-        <div id = "logout" style = "display:none; float:right; color:white;">
-          <button id = "btnLogout" onclick = "Logout()"class = "butt" placeholder = "Submit" onclick = "">
+
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class = "container-fluid">
+      <div id = "logout" style = "display:none; float:right; color:black;">
+        <button id = "btnLogout" onclick = "Logout()"class = "butt"
+        style = "margin-bottom:2rem;
+        margin-right:2rem; margin-top:2rem;
+        "placeholder = "Submit" onclick = "">
       Logout
       </button>
-        </div>
-        <div id = "welcome" style = "float:right; color:white; display:none;
-        margin-right:2rem;">
       </div>
+      <div id = "welcome" style = "float:right; color:black; display:none;
+      margin-right:2rem; margin-top:2rem;">
       </div>
     </div>

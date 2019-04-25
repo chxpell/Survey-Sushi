@@ -193,6 +193,7 @@ firebase.auth().onAuthStateChanged(firebaseUser =>{
     document.getElementById("login").style.display = "none";
     document.getElementById("welcome").style.display = "block";
     document.getElementById("survey").style.display = "block";
+    document.getElementById("survey2").style.display = "block";
     document.getElementById("logout").style.display = "block";
     document.getElementById("welcome").innerHTML = "Online: " + firebaseUser.email;
     email = firebaseUser.email;
@@ -206,6 +207,7 @@ function Logout(){
   document.getElementById("login").style.display = "block";
   document.getElementById("welcome").style.display = "none";
   document.getElementById("survey").style.display = "none";
+  document.getElementById("survey2").style.display = "none";
   document.getElementById("logout").style.display = "none";
   location.replace("http://ww2.cs.fsu.edu/~egonzale/survey_sushi/");
 }
@@ -215,6 +217,7 @@ function Logout(){
 
 function LoggedIn(){
   var welcome_2 = document.getElementById("Welcome2");
+    var imIn = document.getElementById("imIn");
   var createform = document.getElementById("CreateForm");
   var login_form = document.getElementById("login_form");
   if (welcome_2){
@@ -227,6 +230,10 @@ function LoggedIn(){
 
   if (login_form){
     login_form.style.display = "none";
+  }
+
+  if (imIn){
+    imIn.style.display = "block";
   }
 
 }
@@ -242,12 +249,202 @@ survey.description = "<?php echo $_SESSION['description'] ?>";
 survey.company = "<?php echo $_SESSION['company'] ?>";
 survey.question_descriptions = question_descriptions;
 survey.question_answers = question_answers;
+survey.surveyid = id_gen;
 survey.num_questions = "<?php echo $_SESSION['questions'] ?>";
 
-  firebase.database().ref(survey_id).set(survey);
+  firebase.database().ref('/surveys/' + survey_id).set(survey);
+
+var responses = [[],[]];
+
+for (var i =0; i < survey.question_descriptions.length; i++){
+  for (var x = 0; x < survey.question_answers[i].length;x++){
+  responses[i].push(0);
+}
+}
+
+survey2.question_data = responses;
+survey2.surveyid = id_gen;
+
+firebase.database().ref('/responses/' + survey_id).set(survey2);
 
 
 }
+
+function grabSurveys(){
+
+var num_surveys = 0;
+
+var rootquery = firebase.database().ref();
+var query = rootquery.child("/surveys");
+
+query.on("child_added", function(data){
+  if (data.val().user == email){
+    num_surveys++;
+    var html = document.getElementById("analytics_div").innerHTML;
+
+    html = html + "<div class = 'col-sm-4 text-center'>" + "<h3>" +
+    "Survey " + num_surveys + "</h3>" + "<p><b>Id:</b> " + data.val().surveyid + "</p>" +
+     "<p><b>Name:</b> " + data.val().name + "</p>" + "<p><b>Description:</b> " + data.val().description +
+      "</p>" + "<p><b>Company:</b> " + data.val().company + "</p>" +
+      "<button onclick='get_analytics(" + data.val().surveyid +",\"" +
+      data.val().name + "\"," + data.val().num_questions + ")' class='butt' placeholder='Submit'>" +
+      "See Analytics </button>" + "</div>";
+
+    document.getElementById("analytics_div").innerHTML = html;
+  }
+});
+}
+
+function get_analytics(id,name,num){
+
+document.getElementById("info_slide").style.display = "none";
+document.getElementById("analytics_close").style.display = "block !important";
+  var rootquery = firebase.database().ref();
+  var query = rootquery.child("/responses");
+  var x = num;
+
+
+
+// Grabbing Questions / Descriptions for Display
+  var answers = [[],[]];
+  var descriptions = [];
+  var query2 = rootquery.child("/surveys");
+
+  query2.on("child_added", function(data){
+    if (data.val().surveyid == id){
+answers = data.val().question_answers;
+descriptions = data.val().question_descriptions;
+    }
+  });
+
+
+
+  document.getElementById("analytics_slide").style.display = "block";
+
+
+  query.on("child_added", function(data){
+    if (data.val().surveyid == id){
+      var html = document.getElementById("analytics_slide").innerHTML;
+
+
+// Title
+      html = "<div class ='row text-center s_title'>" + name + "<p class = ''" +
+      "> Analytics </p>" + "</div>";
+//Questions Loop
+
+var question = 1;
+var responses = [[],[]];
+var data2 = [];
+
+for(let i = 0; i < data.val().question_data.length; i++){
+html = html + "<div class = 'row a_title '>" +
+"<div class = 'col-sm-6'> Question" + question;
+
+
+html = html + "<div>" + descriptions[(question-1)] + "</div>";
+  for ( b=0; b < answers[question-1].length; b++){
+    html = html + "<p>" + (b+1) + ") " + answers[(question-1)][b] + "</p>";
+  }
+
+
+
+
+html = html + " </div>" +
+"<div class = 'col-sm-6 chartcol'><canvas id='myChart" + question +
+"'width = '200' height = '200'></canvas> </div></div>";
+
+document.getElementById("analytics_slide").innerHTML = html;
+
+  document.getElementById("analytics_close").style.display = "block";
+
+  for (let j = 0; j < data.val().question_data[i].length; j++){
+responses[i].push(data.val().question_data[i][j]);
+  }
+
+
+
+question++;
+}
+
+
+      document.getElementById("analytics_slide").innerHTML = html;
+      printGraph(responses);
+
+    }
+  });
+
+
+
+}
+
+function printGraph(responses){
+
+  var numofQuestions = [[],[]];
+
+for (var i = 0; i < responses.length; i++){
+
+for (var j = 0; j < responses[i].length; j++){
+  numofQuestions[i].push("Answer" + (j+1));
+}
+
+
+
+  var chart_id = "myChart" +(i+1);
+  console.log(chart_id);
+  console.log(responses[i]);
+
+var ctx = document.getElementById(chart_id).getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: numofQuestions[i],
+        datasets: [{
+            label: '# of Responses',
+            data: responses[i],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+numofQuestions = [[],[]];
+}
+
+}
+
+function close_analytics (){
+    document.getElementById("analytics_slide").style.display = "none";
+    document.getElementById("analytics_close").style.display = "none";
+    document.getElementById("info_slide").style.display = "block";
+}
+
+
+grabSurveys();
+
 
 </script>
 

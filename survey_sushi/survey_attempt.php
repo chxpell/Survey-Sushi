@@ -27,7 +27,7 @@ $_SESSION['description'] = $_POST['description'];
 
 
 <!-- Survey Question / Answer Generation -->
- <div id = "surveyComplete" class = "container" style = "margin-top:3rem;">
+ <div id = "surveyComplete" class = "container" style = "margin-top:5rem;">
 
    <h1>
 Question Creator

@@ -36,11 +36,10 @@ h1{
 
 body {
   background: #ffffff;
-  font-family: 'Roboto', sans-serif;
 }
 
 div, a, body{
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'IBM Plex Sans', sans-serif !important;
 }
 
 .nav li a{
@@ -73,7 +72,7 @@ Login Form
 
 */
 
-#survey{
+#survey, #survey2{
   display:none;
 }
 
@@ -116,7 +115,6 @@ Login Form
   display: block;
   background: #cf5351;
   width: 100%;
-  text-transform: uppercase;
   padding: 0.75em 1em 0.75em 1.5em;
   box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05);
   border: 1px solid #1d1d1d;
@@ -124,6 +122,7 @@ Login Form
   font-weight: 200;
 }
 .log-form input {
+  margin-top:2rem;
   display: block;
   margin: auto auto;
   width: 100%;

@@ -12,7 +12,7 @@ User Login Page
 
 
 <!-- User Login Form -->
-  <div class="log-form" id = "login_form">
+  <div class="log-form text-center" id = "login_form">
     <h2>Login to your account</h2>
       <input type="text" id = "username" placeholder="username" />
       <input type="password" id = "password" placeholder="password" />
@@ -20,6 +20,12 @@ User Login Page
 Submit
       </button>
       <a class="forgot" href="./create_account.php">Create Account</a>
+  </div>
+
+  <div id = "imIn" class = "row" style = "margin-top:10rem; display:none;">
+You Have Been Successfully Logged In!
+<img src = "./images/happysushi.png" style = "height:10rem; width:auto;
+margin-top:4rem;">
   </div>
 
 </div>
