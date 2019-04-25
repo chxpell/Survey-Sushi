@@ -5,8 +5,6 @@
 
 ## Website - To Do
 
-#### Analytics Page
-
 #### Error Handling
 - Login/Account Creation Error Handling
 - Survey Generator Error Handling
@@ -17,5 +15,6 @@
 - Question Creation Page
 - User Authentication
 - Account Creation
+- Analytics Page
 
 
