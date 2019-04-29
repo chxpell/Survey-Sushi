@@ -15,7 +15,7 @@ Must be in .php file because php session variables are being used.
 var remaining_questions = <?php echo $_SESSION['numquestions'] ?>;
 var question_descriptions = [];
 var question_num = 0;
-var question_answers = [[],[]];
+var question_answers = [];
 var survey = {};
 var email = "";
 /*
@@ -45,7 +45,7 @@ function SubmitFormData() {
 /* Takes in Question Answers */
 function SubmitQuestionData(num_questions) {
   var x = num_questions + 1;
-  var answers = ["Null"];
+  var answers = [];
   var answersid = "#answers";
   var answer_pt1 = "<div class = 'row text-center'> ";
   var answer_data = "";
@@ -64,8 +64,9 @@ answersid = answersid.substring(0, answersid.length - 1);
 num_questions--;
 
 // Saving Individual Answers to Variable Array
-question_answers[question_num][y-1] = answer_data;
+answers.push(answer_data);
 }
+question_answers.push(answers);
 
 document.getElementById("output_2").innerHTML = answer_string;
 $('#myForm').children('input').val('');
@@ -254,19 +255,22 @@ survey.num_questions = "<?php echo $_SESSION['questions'] ?>";
 
   firebase.database().ref('/surveys/' + survey_id).set(survey);
 
-var responses = [[],[]];
+var responses = [];
+var responder = [];
 
 for (var i =0; i < survey.question_descriptions.length; i++){
   for (var x = 0; x < survey.question_answers[i].length;x++){
-  responses[i].push(0);
+  responder.push(0);
 }
+responses.push(responder);
+responder = [];
 }
 
 survey2.question_data = responses;
 survey2.surveyid = id_gen;
 
 firebase.database().ref('/responses/' + survey_id).set(survey2);
-
+console.log("Survey Pushed!");
 
 }
 
@@ -306,7 +310,7 @@ document.getElementById("analytics_close").style.display = "block !important";
 
 
 // Grabbing Questions / Descriptions for Display
-  var answers = [[],[]];
+  var answers = [];
   var descriptions = [];
   var query2 = rootquery.child("/surveys");
 
@@ -314,7 +318,7 @@ document.getElementById("analytics_close").style.display = "block !important";
     if (data.val().surveyid == id){
 answers = data.val().question_answers;
 descriptions = data.val().question_descriptions;
-    }
+}
   });
 
 
@@ -333,7 +337,8 @@ descriptions = data.val().question_descriptions;
 //Questions Loop
 
 var question = 1;
-var responses = [[],[]];
+var responses = [];
+var responder = [];
 var data2 = [];
 
 for(let i = 0; i < data.val().question_data.length; i++){
@@ -358,8 +363,10 @@ document.getElementById("analytics_slide").innerHTML = html;
   document.getElementById("analytics_close").style.display = "block";
 
   for (let j = 0; j < data.val().question_data[i].length; j++){
-responses[i].push(data.val().question_data[i][j]);
+responder.push(data.val().question_data[i][j]);
   }
+  responses.push(responder);
+  responder = [];
 
 
 
@@ -379,19 +386,22 @@ question++;
 
 function printGraph(responses){
 
-  var numofQuestions = [[],[]];
+  var numofQuestions = [];
+  var responder = [];
 
 for (var i = 0; i < responses.length; i++){
 
 for (var j = 0; j < responses[i].length; j++){
-  numofQuestions[i].push("Answer" + (j+1));
+  responder.push("Answer" + (j+1));
 }
+
+numofQuestions.push(responder);
+responder = [];
 
 
 
   var chart_id = "myChart" +(i+1);
-  console.log(chart_id);
-  console.log(responses[i]);
+
 
 var ctx = document.getElementById(chart_id).getContext('2d');
 var myChart = new Chart(ctx, {
@@ -431,7 +441,7 @@ var myChart = new Chart(ctx, {
     }
 });
 
-numofQuestions = [[],[]];
+numofQuestions = [];
 }
 
 }

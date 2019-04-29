@@ -11,7 +11,12 @@
 <li> <a href ="https://codepen.io/banunn/pen/AFnal">
   Login Page Sample </a>  </li>
   <li> <a href ="https://www.w3schools.com/">
-    W3 Schools (aka The Best Teacher You'll Never Have) </a> </li>
+    W3 Schools</a> </li>
+    <li> <a href ="https://codepen.io/wutronic/pen/EoEpWO">
+      Form Animation Sample </a> </li>
+      <li> <a href ="https://firebase.google.com/">
+        Firebase </a> </li>
+
 </ul>
 </div>
 
