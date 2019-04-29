@@ -6,7 +6,7 @@
 ### Use Intructions
 
 • Click Login Link to Login to your Account.  If you do not have one, click create account and enter an email and password to create an account:  
-> Ex. Email: testing@gmail.com  Password: password
+Example: Email: testing@gmail.com  Password: password
 • Click Create Survey to Go To The Survey Creation Page and Create a Survey.
 > Assign Survey Information & Use an Positive Integer Value to Assign Number of Questions.
 • Upon Submitting your Survey Form your Will Be Able to Create Questions by Writing a Question Description and Using a Positive Integer Value to pick the number of Answers for each Question.
